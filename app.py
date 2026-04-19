@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-# ── Page Config ───────────────────────────────────────────────────────────────
+# Page Config 
 
 st.set_page_config(
     page_title="Student Placement Predictor",
@@ -13,17 +13,17 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Load Models ───────────────────────────────────────────────────────────────
+# Load Models 
 
 @st.cache_resource
 def load_model(path: str):
     with open(path, "rb") as f:
         return pickle.load(f)
 
-clf_model = load_model("../No2/best_model_classification.pkl")
-reg_model = load_model("../No2/best_model_regression.pkl")
+clf_model = load_model("best_model_classification.pkl")
+reg_model = load_model("best_model_regression.pkl")
 
-# ── Sidebar ───────────────────────────────────────────────────────────────────
+# Sidebar
 
 with st.sidebar:
     st.title("🎓 Student Predictor")
@@ -32,24 +32,24 @@ with st.sidebar:
 
     page = st.radio(
         "Mode Prediksi",
-        ["🏷️ Classification", "💰 Regression"],
+        [" Classification", " Regression"],
         help="Classification → Placed / Not Placed\nRegression → Estimasi Salary (LPA)",
     )
     st.divider()
 
-    with st.expander("ℹ️ Info Model"):
+    with st.expander("ℹ Info Model"):
         if "Classification" in page:
             st.markdown("**Model:** MLP Classifier  \n**Target:** placement_status  \n**Metrik:** Accuracy 89% | AUC 0.899")
         else:
             st.markdown("**Model:** Linear Regression  \n**Target:** salary_lpa  \n**Catatan:** Hanya untuk mahasiswa Placed")
 
-# ── Helper: Input Form ────────────────────────────────────────────────────────
+# Helper: Input Form 
 
 def render_input_form(show_salary_note: bool = False) -> pd.DataFrame:
     if show_salary_note:
-        st.info("💡 Model regresi dilatih hanya pada mahasiswa **Placed**. Input ini mengestimasi salary jika mahasiswa tersebut diterima.", icon="ℹ️")
+        st.info(" Model regresi dilatih hanya pada mahasiswa **Placed**. Input ini mengestimasi salary jika mahasiswa tersebut diterima.", icon="ℹ️")
 
-    st.subheader("📋 Data Mahasiswa")
+    st.subheader(" Data Mahasiswa")
 
     col1, col2, col3 = st.columns(3)
 
@@ -181,7 +181,7 @@ def page_classification():
 
     with st.form("clf_form"):
         input_df = render_input_form()
-        submitted = st.form_submit_button("🔍 Prediksi", use_container_width=True, type="primary")
+        submitted = st.form_submit_button(" Prediksi", width="stretch", type="primary")
 
     if submitted:
         prob = clf_model.predict_proba(input_df)[0]
@@ -189,16 +189,16 @@ def page_classification():
         prediction = "Placed" if placed_prob >= 0.5 else "Not Placed"
 
         st.divider()
-        st.subheader("📊 Hasil Prediksi")
+        st.subheader(" Hasil Prediksi")
 
         col_res, col_gauge, col_bar = st.columns([1, 1.5, 1.5])
 
         with col_res:
             if prediction == "Placed":
-                st.success("### ✅ PLACED")
+                st.success("### PLACED")
                 st.markdown("Mahasiswa ini diprediksi **berhasil** mendapatkan pekerjaan.")
             else:
-                st.error("### ❌ NOT PLACED")
+                st.error("###  NOT PLACED")
                 st.markdown("Mahasiswa ini diprediksi **belum** mendapatkan pekerjaan.")
 
             st.metric("Probabilitas Placed", f"{placed_prob*100:.1f}%")
@@ -207,14 +207,15 @@ def page_classification():
         with col_gauge:
             st.plotly_chart(
                 gauge_chart(placed_prob * 100, "Placed Probability", suffix="%"),
-                use_container_width=True,
+                width="stretch",
             )
 
         with col_bar:
-            st.plotly_chart(prob_bar_chart(placed_prob), use_container_width=True)
+            st.plotly_chart(prob_bar_chart(placed_prob), width="stretch")
 
-        with st.expander("🔎 Lihat Input Data"):
-            st.dataframe(input_df.T.rename(columns={0: "Nilai"}), use_container_width=True)
+        with st.expander(" Lihat Input Data"):
+            display_df = input_df.T.rename(columns={0: "Nilai"}).astype(str)
+            st.dataframe(display_df, width="stretch")
 
 # Page: Regression 
 
@@ -225,14 +226,14 @@ def page_regression():
 
     with st.form("reg_form"):
         input_df = render_input_form(show_salary_note=True)
-        submitted = st.form_submit_button("💵 Estimasi Salary", use_container_width=True, type="primary")
+        submitted = st.form_submit_button(" Estimasi Salary", width="stretch", type="primary")
 
     if submitted:
         predicted_salary = float(reg_model.predict(input_df)[0])
         predicted_salary = max(0.0, min(20.0, predicted_salary))
 
         st.divider()
-        st.subheader("📊 Hasil Estimasi")
+        st.subheader(" Hasil Estimasi")
 
         col_res, col_gauge = st.columns([1, 2])
 
@@ -244,24 +245,25 @@ def page_regression():
             )
 
             if predicted_salary >= 18:
-                st.success("🏆 **Sangat Tinggi** — Top earner!")
+                st.success(" **Sangat Tinggi** Top earner!")
             elif predicted_salary >= 15:
-                st.info("📈 **Di atas rata-rata** — Bagus!")
+                st.info("**Di atas rata-rata**  Bagus!")
             elif predicted_salary >= 12:
-                st.warning("📊 **Rata-rata** — Masih bisa ditingkatkan.")
+                st.warning("**Rata-rata**  Masih bisa ditingkatkan.")
             else:
-                st.error("📉 **Di bawah rata-rata** — Perlu peningkatan skill.")
+                st.error(" **Di bawah rata-rata** —Perlu peningkatan skill.")
 
         with col_gauge:
             st.plotly_chart(
                 gauge_chart(predicted_salary, "Predicted Salary", suffix=" LPA", max_val=20),
-                use_container_width=True,
+                width="stretch",
             )
 
-        st.plotly_chart(salary_bar_chart(predicted_salary), use_container_width=True)
+        st.plotly_chart(salary_bar_chart(predicted_salary), width="stretch")
 
-        with st.expander("🔎 Lihat Input Data"):
-            st.dataframe(input_df.T.rename(columns={0: "Nilai"}), use_container_width=True)
+        with st.expander(" Lihat Input Data"):
+            display_df = input_df.T.rename(columns={0: "Nilai"}).astype(str)
+            st.dataframe(display_df, width="stretch")
 
 # Router
 
