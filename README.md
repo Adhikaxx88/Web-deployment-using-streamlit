@@ -1,32 +1,32 @@
 # Student Placement Predictor
 
-Aplikasi web berbasis Streamlit untuk memprediksi status penempatan kerja (placement) dan mengestimasi gaji (salary) mahasiswa, menggunakan model machine learning yang sudah dilatih sebelumnya.
+A Streamlit web app that predicts student job placement status and estimates salary, using pre-trained machine learning models.
 
-## Fitur
+## Features
 
-Aplikasi ini memiliki dua mode prediksi yang bisa dipilih lewat sidebar:
+The app has two prediction modes selectable from the sidebar:
 
-1. **Classification** — Memprediksi apakah seorang mahasiswa akan Placed atau Not Placed, lengkap dengan probabilitas, gauge chart, dan bar chart perbandingan.
-2. **Regression** — Mengestimasi salary (LPA) mahasiswa yang diasumsikan sudah Placed, dibandingkan dengan benchmark rata-rata (min, rata-rata, dan maksimum).
+1. **Classification** — Predicts whether a student will be Placed or Not Placed, complete with probability, a gauge chart, and a comparison bar chart.
+2. **Regression** — Estimates salary (LPA) for a student assumed to be Placed, compared against benchmark values (min, average, max).
 
-Input data mahasiswa mencakup tiga kategori:
-- **Akademik**: CGPA, jumlah backlog, internship, sertifikasi
-- **Skill & Aktivitas**: rating coding, komunikasi, aptitude, keterlibatan ekstrakurikuler
-- **Gaya Hidup & Demografi**: jam belajar/tidur, tingkat stres, gender, jurusan, tingkat pendapatan keluarga, tier kota, akses internet, kerja paruh waktu
+Student input data covers three categories:
+- **Academic**: CGPA, number of backlogs, internships, certifications
+- **Skills & Activity**: coding, communication, and aptitude ratings, extracurricular involvement
+- **Lifestyle & Demographics**: study/sleep hours, stress level, gender, branch, family income level, city tier, internet access, part-time job
 
 ## Model
 
 **Classification**
 - Model: MLP Classifier
 - Target: `placement_status`
-- Metrik: Accuracy 89%, AUC 0.899
+- Metrics: Accuracy 89%, AUC 0.899
 
 **Regression**
 - Model: Linear Regression
 - Target: `salary_lpa`
-- Catatan: Dilatih hanya pada data mahasiswa yang Placed
+- Note: Trained only on students who were Placed
 
-Model disimpan dalam format `.pkl`:
+Models are stored in `.pkl` format:
 - `best_model_classification.pkl`
 - `best_model_regression.pkl`
 
@@ -36,18 +36,18 @@ Model disimpan dalam format `.pkl`:
 - Streamlit
 - Scikit-learn
 - Pandas & NumPy
-- Plotly (visualisasi gauge chart & bar chart)
+- Plotly (gauge chart & bar chart visualizations)
 
-## Struktur Project
+## Project Structure
 
 - `app.py` — Main Streamlit app
-- `best_model_classification.pkl` — Model klasifikasi (MLP)
-- `best_model_regression.pkl` — Model regresi (Linear Regression)
+- `best_model_classification.pkl` — Classification model (MLP)
+- `best_model_regression.pkl` — Regression model (Linear Regression)
 - `requirements.txt` — Dependencies
 
-## Cara Menjalankan
+## How to Run
 
-1. Clone repository ini:
+1. Clone this repository:
 
    git clone https://github.com/Adhikaxx88/Web-deployment-using-streamlit.git
 
@@ -57,19 +57,19 @@ Model disimpan dalam format `.pkl`:
 
    pip install -r requirements.txt
 
-3. Jalankan aplikasi:
+3. Run the app:
 
    streamlit run app.py
 
-4. Buka browser di `http://localhost:8501`
+4. Open your browser at `http://localhost:8501`
 
-## Cara Pakai
+## How to Use
 
-1. Pilih mode prediksi di sidebar (Classification atau Regression)
-2. Isi data mahasiswa pada form yang tersedia
-3. Klik tombol Prediksi/Estimasi Salary
-4. Lihat hasil prediksi beserta visualisasi probabilitas/estimasinya
+1. Choose a prediction mode in the sidebar (Classification or Regression)
+2. Fill in the student data form
+3. Click Predict/Estimate Salary
+4. View the prediction result along with the probability/estimate visualization
 
 ## License
 
-Belum ada lisensi ditentukan.
+No license specified yet.
