@@ -1,6 +1,3 @@
-Nih lengkapnya, tinggal copas semua:
-
-```markdown
 # Student Placement Predictor
 
 Aplikasi web berbasis Streamlit untuk memprediksi status penempatan kerja (placement) dan mengestimasi gaji (salary) mahasiswa, menggunakan model machine learning yang sudah dilatih sebelumnya.
@@ -43,30 +40,26 @@ Model disimpan dalam format `.pkl`:
 
 ## Struktur Project
 
-```
-app.py                          -> Main Streamlit app
-best_model_classification.pkl   -> Model klasifikasi (MLP)
-best_model_regression.pkl       -> Model regresi (Linear Regression)
-requirements.txt                -> Dependencies
-```
+- `app.py` — Main Streamlit app
+- `best_model_classification.pkl` — Model klasifikasi (MLP)
+- `best_model_regression.pkl` — Model regresi (Linear Regression)
+- `requirements.txt` — Dependencies
 
 ## Cara Menjalankan
 
 1. Clone repository ini:
-   ```bash
+
    git clone https://github.com/Adhikaxx88/Web-deployment-using-streamlit.git
+
    cd Web-deployment-using-streamlit
-   ```
 
 2. Install dependencies:
-   ```bash
+
    pip install -r requirements.txt
-   ```
 
 3. Jalankan aplikasi:
-   ```bash
+
    streamlit run app.py
-   ```
 
 4. Buka browser di `http://localhost:8501`
 
@@ -80,4 +73,3 @@ requirements.txt                -> Dependencies
 ## License
 
 Belum ada lisensi ditentukan.
-```
