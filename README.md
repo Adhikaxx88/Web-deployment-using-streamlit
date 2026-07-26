@@ -1,4 +1,4 @@
-
+Nih lengkapnya, tinggal copas semua:
 
 ```markdown
 # Student Placement Predictor
@@ -32,6 +32,7 @@ Input data mahasiswa mencakup tiga kategori:
 Model disimpan dalam format `.pkl`:
 - `best_model_classification.pkl`
 - `best_model_regression.pkl`
+
 ## Tech Stack
 
 - Python
@@ -43,10 +44,10 @@ Model disimpan dalam format `.pkl`:
 ## Struktur Project
 
 ```
-├── app.py                          # Main Streamlit app
-├── best_model_classification.pkl   # Model klasifikasi (MLP)
-├── best_model_regression.pkl       # Model regresi (Linear Regression)
-└── requirements.txt                # Dependencies
+app.py                          -> Main Streamlit app
+best_model_classification.pkl   -> Model klasifikasi (MLP)
+best_model_regression.pkl       -> Model regresi (Linear Regression)
+requirements.txt                -> Dependencies
 ```
 
 ## Cara Menjalankan
@@ -75,4 +76,8 @@ Model disimpan dalam format `.pkl`:
 2. Isi data mahasiswa pada form yang tersedia
 3. Klik tombol Prediksi/Estimasi Salary
 4. Lihat hasil prediksi beserta visualisasi probabilitas/estimasinya
+
+## License
+
+Belum ada lisensi ditentukan.
 ```
