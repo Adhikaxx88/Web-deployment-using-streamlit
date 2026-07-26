@@ -17,18 +17,21 @@ Input data mahasiswa mencakup tiga kategori:
 - **Skill & Aktivitas**: rating coding, komunikasi, aptitude, keterlibatan ekstrakurikuler
 - **Gaya Hidup & Demografi**: jam belajar/tidur, tingkat stres, gender, jurusan, tingkat pendapatan keluarga, tier kota, akses internet, kerja paruh waktu
 
-**Classification**
+## Model
 
-| Model | Target | Accuracy | AUC |
-|---|---|---|---|
-| MLP Classifier | `placement_status` | 89% | 0.899 |
+**Classification**
+- Model: MLP Classifier
+- Target: `placement_status`
+- Metrik: Accuracy 89%, AUC 0.899
 
 **Regression**
+- Model: Linear Regression
+- Target: `salary_lpa`
+- Catatan: Dilatih hanya pada data mahasiswa yang Placed
 
-| Model | Target | Catatan |
-|---|---|---|
-| Linear Regression | `salary_lpa` | Dilatih hanya pada data mahasiswa yang Placed |
-
+Model disimpan dalam format `.pkl`:
+- `best_model_classification.pkl`
+- `best_model_regression.pkl`
 ## Tech Stack
 
 - Python
