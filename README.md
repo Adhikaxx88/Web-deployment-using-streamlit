@@ -1,4 +1,4 @@
-Oke, ini versi tanpa emoji berlebihan:
+
 
 ```markdown
 # Student Placement Predictor
@@ -71,8 +71,4 @@ Model disimpan dalam format `.pkl`:
 2. Isi data mahasiswa pada form yang tersedia
 3. Klik tombol Prediksi/Estimasi Salary
 4. Lihat hasil prediksi beserta visualisasi probabilitas/estimasinya
-
-## License
-
-Belum ada lisensi ditentukan.
 ```
